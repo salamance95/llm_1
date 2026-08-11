@@ -7,7 +7,6 @@
 // 객체는 만든 뒤에도 속성을 넣고 빼고 고칠 수 있습니다.
 // 배열의 push / splice 같은 메소드가 따로 없고, 그냥 = 로 합니다.
 
-
 // ── 섹션 1: 추가하기 ──
 
 const user = {
@@ -34,7 +33,6 @@ console.log(user);
 
 // ✏️ 직접 해보기 1 — 빈 객체를 만들고 title 과 price 속성을 넣어 출력해 보세요.
 
-
 // ── 섹션 2: 수정하기 ──
 
 // 이미 있는 이름에 값을 넣으면 덮어쓰기가 됩니다.
@@ -55,14 +53,16 @@ console.log(user.agee);
 // age 는 그대로고 agee 라는 이상한 속성이 생겼습니다.
 
 // 값을 계산해서 넣을 수도 있습니다.
-const product = { price: 10000, count: 3 };
-product.total = product.price * product.count;
-console.log(product);
+// const product = { price: 10000, count: 3 };
+// product.total = product.price * product.count;
+// console.log(product);
 // 출력: { price: 10000, count: 3, total: 30000 }
 
 // ✏️ 직접 해보기 2 — product 의 price 를 20000 으로 바꾸고 출력해 보세요.
 
-
+const product = { price: 10000, count: 3 };
+product.price = 20000;
+console.log(product.price);
 // ── 섹션 3: 삭제하기 ──
 
 const item = { name: "이어폰", price: 89000, oldPrice: 120000 };
@@ -86,7 +86,6 @@ console.log(item);
 // 출력: { name: '이어폰', price: null }
 
 // ✏️ 직접 해보기 3 — 객체를 만들고 속성 하나를 delete 로 지워 보세요.
-
 
 // ── 섹션 4: 속성이 있는지 확인하기 ──
 
@@ -123,7 +122,6 @@ if ("theme" in config) {
 
 // ✏️ 직접 해보기 4 — config 에 "fontSize" 속성이 있는지 in 으로 확인해 보세요.
 
-
 // ── 섹션 5: const 인데 왜 바뀌나 ──
 
 // 배열과 같은 이유입니다.
@@ -139,7 +137,6 @@ console.log(settings);
 // const 는 "settings 라는 이름이 다른 객체를 가리키지 못하게" 막는 것입니다.
 // 객체 '안의 내용'은 막지 않습니다.
 // 그래서 객체도 배열처럼 대부분 const 로 만듭니다.
-
 
 // ── 섹션 6: 객체를 복사할 때 조심할 것 ──
 
@@ -192,7 +189,6 @@ console.log(a);
 // ✏️ 직접 해보기 5 — 객체를 { ... } 로 복사한 뒤 복사본만 바꿔 보고
 //                    원본이 그대로인지 확인해 보세요.
 
-
 // ── 섹션 7: 자주 하는 실수 ──
 
 // [실수 1] 속성 이름 오타로 새 속성이 생김 (섹션 2에서 봤습니다)
@@ -211,7 +207,6 @@ console.log(a);
 // 이 실수는 에러도 안 나고 한참 뒤에 이상한 값으로 발견됩니다.
 // 객체를 넘길 때는 항상 "원본이 바뀌어도 되는가" 를 먼저 생각하세요.
 
-
 // ── 정리 ──
 
 // 1. 객체.이름 = 값  — 없으면 추가, 있으면 수정. 문법이 같다.
@@ -220,7 +215,6 @@ console.log(a);
 // 4. const 객체도 속성은 바꿀 수 있다.
 // 5. copy = original 은 복사가 아니다. { ...original } 로 복사한다.
 //    단, 한 겹만 복사된다. 안에 객체가 또 있으면 그쪽은 이어져 있다. (09단원 개념04)
-
 
 // ============================================================
 // 직접 해보기 정답
