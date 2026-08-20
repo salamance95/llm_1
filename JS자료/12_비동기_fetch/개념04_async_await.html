@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -55,17 +55,18 @@
     <h1>개념 04 — async 와 await</h1>
 
     <p class="guide">
-      <strong>인터넷 연결이 필요합니다.</strong> 브라우저로 열고 버튼을 눌러 보세요.
-      <strong>F12 → Console</strong> 도 함께 보세요.
-    
+      <strong>인터넷 연결이 필요합니다.</strong> 브라우저로 열고 버튼을 눌러
+      보세요. <strong>F12 → Console</strong> 도 함께 보세요.
+
       <br /><br />
       <strong>인터넷이 막혀 있어 안 된다면</strong> 이 파일 아래쪽
-      <code>&lt;script&gt;</code> 바로 위에 있는 <code>오프라인_대체.js</code> 줄에서
-      주석 기호를 지우세요. 인터넷 없이도 똑같이 동작합니다.
-      <br /><br />
+      <code>&lt;script&gt;</code> 바로 위에 있는
+      <code>오프라인_대체.js</code> 줄에서 주석 기호를 지우세요. 인터넷 없이도
+      똑같이 동작합니다. <br /><br />
       <strong>HTML 과 CSS 는 몰라도 됩니다.</strong> 이 파일 위쪽의
-      <code>&lt;style&gt;</code> 과 <code>&lt;body&gt;</code> 는 화면 모양을 만드는 코드입니다.
-      이 자료에서는 가르치지 않습니다. <code>&lt;script&gt;</code> 안부터 읽으세요.
+      <code>&lt;style&gt;</code> 과 <code>&lt;body&gt;</code> 는 화면 모양을
+      만드는 코드입니다. 이 자료에서는 가르치지 않습니다.
+      <code>&lt;script&gt;</code> 안부터 읽으세요.
     </p>
 
     <div class="demo">
@@ -150,8 +151,12 @@
         console.log("await 방식 완료");
       }
 
-      document.querySelector("#thenBtn").addEventListener("click", loadWithThen);
-      document.querySelector("#awaitBtn").addEventListener("click", loadWithAwait);
+      document
+        .querySelector("#thenBtn")
+        .addEventListener("click", loadWithThen);
+      document
+        .querySelector("#awaitBtn")
+        .addEventListener("click", loadWithAwait);
 
       // 차이를 보세요.
       //   then : .then((res) => res.json()).then((data) => ...)
@@ -186,7 +191,11 @@
 
       // ✏️ 직접 해보기 2 — getNumber() 의 42 를 then 이 아니라 await 로 꺼내 보세요.
       //                    (규칙 1을 기억하세요. await 를 쓸 자리를 먼저 만들어야 합니다)
-
+      async function run() {
+        const try2 = await getNumber();
+        console.log(try2);
+      }
+      run;
       // ── 섹션 3: 순서대로 요청하기 ──
 
       // 앞의 결과가 있어야 다음 요청을 할 수 있는 경우입니다.
@@ -204,10 +213,15 @@
         const user = await userRes.json();
         console.log("3단계: 작성자 받음");
 
-        out2.textContent = `"${post.title}" — 작성자: ${user.name}`;
+        const emailRES = await fetch(`${BASE_URL}/users/${post.userId}`);
+        const emailData = await emailRES.json();
+        console.log("이메일 받음");
+        out2.textContent = `"${post.title}" — 작성자: ${user.name} (이메일: ${emailData.email})`;
       }
 
-      document.querySelector("#seqBtn").addEventListener("click", loadPostAndAuthor);
+      document
+        .querySelector("#seqBtn")
+        .addEventListener("click", loadPostAndAuthor);
 
       // then 으로 쓰면 이렇게 됩니다. 비교해 보세요.
       //

@@ -1,0 +1,68 @@
+.features {
+  padding: 96px 0 76px;
+  background: var(--white);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+}
+
+.card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.card-image {
+  min-height: 250px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.americano {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.08)),
+    url("../assets/legacy/아메리카노.jpg");
+  background-size: cover;
+}
+
+.frappuccino {
+  background-color: #f8eee8;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.06)),
+    url("../assets/legacy/딸기 크림 프라푸치노.jpeg");
+  background-size: cover, contain;
+}
+
+.cheesecake {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.08)),
+    url("../assets/legacy/치즈케이크.jpeg");
+  background-size: cover;
+}
+
+.card-body {
+  padding: 24px 22px 28px;
+}
+
+.card-body span {
+  color: var(--green);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.card-body h3 {
+  margin: 12px 0 10px;
+  font-size: 1.38rem;
+}
+
+.card-body p {
+  margin: 0;
+  color: var(--gray);
+  line-height: 1.7;
+}

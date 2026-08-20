@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -41,6 +41,7 @@
       .done {
         color: #999;
         text-decoration: line-through;
+        opacity: 0.6;
       }
       .hidden {
         display: none;
@@ -55,13 +56,14 @@
     <h1>개념 03 — 스타일과 클래스</h1>
 
     <p class="guide">
-      브라우저로 열고 <strong>F12 → Console</strong> 을 함께 보세요. 아래 상자들의
-      색과 모양이 자바스크립트로 이미 바뀌어 있습니다.
-    
+      브라우저로 열고 <strong>F12 → Console</strong> 을 함께 보세요. 아래
+      상자들의 색과 모양이 자바스크립트로 이미 바뀌어 있습니다.
+
       <br /><br />
       <strong>HTML 과 CSS 는 몰라도 됩니다.</strong> 이 파일 위쪽의
-      <code>&lt;style&gt;</code> 과 <code>&lt;body&gt;</code> 는 화면 모양을 만드는 코드입니다.
-      이 자료에서는 가르치지 않습니다. <code>&lt;script&gt;</code> 안부터 읽으세요.
+      <code>&lt;style&gt;</code> 과 <code>&lt;body&gt;</code> 는 화면 모양을
+      만드는 코드입니다. 이 자료에서는 가르치지 않습니다.
+      <code>&lt;script&gt;</code> 안부터 읽으세요.
     </p>
 
     <div class="demo">
@@ -121,7 +123,8 @@
       // 반드시 단위를 붙인 '문자열' 로 줘야 합니다.
 
       // ✏️ 직접 해보기 1 — box1 의 글자색을 "yellow" 로 바꿔 보세요.
-
+      const boxcolor = document.querySelector("#box1");
+      boxcolor.style.color = "yellow";
       // ── 섹션 2: classList — 클래스 붙이고 떼기 ──
 
       // style 로 하나하나 바꾸는 것보다, CSS 에 미리 만들어 둔 클래스를
@@ -130,11 +133,9 @@
       // 이 파일 위쪽 style 태그에 .highlight .done .hidden .danger 를 미리 만들어 뒀습니다.
 
       const box2 = document.querySelector("#box2");
-
       // add — 클래스 붙이기
       box2.classList.add("highlight");
       // 화면: 상자 2 가 노란 배경에 굵은 글자가 됩니다
-
       console.log(box2.className);
       // 콘솔: item highlight
       // 원래 있던 item 클래스는 그대로 있고 highlight 가 더해졌습니다.
@@ -182,6 +183,8 @@
 
       // ✏️ 직접 해보기 3 — 위 [style 로 하면] 세 줄과 같은 일을
       //                   box1 에 classList 한 줄로 해 보세요. (클래스 이름은 done)
+      const change = document.querySelector("#box1");
+      change.classList.add("done");
 
       // ── 섹션 4: 조건에 따라 클래스 정하기 ──
 
@@ -204,7 +207,12 @@
       // isSoldOut 이 false 였다면 떼어졌을 겁니다.
 
       // ✏️ 직접 해보기 4 — 점수가 60 미만이면 danger 클래스를 붙이는 코드를 써 보세요.
-
+      const score = 50;
+      const Box3 = document.querySelector("#box3");
+      if (score < 60) {
+        Box3.classList.add("danger");
+      }
+      console.log(Box3.classList.contains("danger"));
       // ── 섹션 5: 여러 요소에 한꺼번에 ──
 
       const items = document.querySelectorAll(".item");
@@ -226,8 +234,9 @@
 
       // ✏️ 직접 해보기 5 — 바로 위 주석을 참고해 모든 .item 에 highlight 를 붙이고,
       //                   highlight 가 붙은 요소가 몇 개인지 콘솔에 찍어 보세요.
-
-      // ── 섹션 6: 현재 적용된 스타일 읽기 ──
+      items.forEach((item) => item.classList.add("highlight"));
+      const count = items.length;
+      console.log(count);
 
       // 주의: element.style 은 '자바스크립트로 직접 넣은 것' 만 읽습니다.
       // box5 에는 위에서 highlight 클래스를 붙였지만 style 로 직접 넣은 적은 없습니다.
@@ -248,9 +257,10 @@
       // 그래서 같은 속성을 양쪽에서 건드리면 style 쪽이 이깁니다.
 
       // 읽을 일은 드뭅니다. "왜 style 로 읽으면 비어 있지?" 할 때만 기억하세요.
-
       // ✏️ 직접 해보기 6 — box1 과 box2 의 style.backgroundColor 를 각각 찍어 보세요.
       //                   한쪽만 값이 나옵니다. 왜 그런지 말로 설명해 보세요.
+      console.log(document.querySelector("#box1").style.backgroundColor);
+      console.log(box2.backgroundColor);
 
       // ── 섹션 7: 자주 하는 실수 ──
 

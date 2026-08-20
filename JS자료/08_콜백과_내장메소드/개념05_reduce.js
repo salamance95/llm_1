@@ -13,7 +13,6 @@
 // 이 파일은 08단원에서 가장 어렵습니다. 천천히 보세요.
 // 어렵다면 for 문으로 먼저 쓰고 나중에 바꿔도 됩니다.
 
-
 // ── 섹션 1: 합계를 세 가지 방법으로 ──
 
 const numbers = [10, 20, 30, 40];
@@ -42,7 +41,6 @@ console.log(sum3);
 // acc 는 accumulator(누적값)의 줄임말입니다. total 이라고 이름 지어도 됩니다.
 
 // ✏️ 직접 해보기 1 — [1, 2, 3, 4, 5] 의 합을 reduce 로 구해 보세요.
-
 
 // ── 섹션 2: 어떻게 도는지 한 바퀴씩 보기 ──
 
@@ -73,11 +71,10 @@ small.reduce((acc, n) => {
 console.log(
   small.reduce((acc, n) => {
     acc + n; // return 이 없습니다
-  }, 0)
+  }, 0),
 );
 // 출력: undefined
 // reduce 를 쓸 때 가장 흔한 실수입니다.
-
 
 // ── 섹션 3: 시작값을 빠뜨리면 ──
 
@@ -102,7 +99,6 @@ console.log(["a", "b", "c"].reduce((acc, s) => acc + s, ""));
 
 // ✏️ 직접 해보기 2 — ["안", "녕", "하", "세", "요"] 를 reduce 로 이어붙여 보세요.
 
-
 // ── 섹션 4: 객체 배열의 합계 ──
 
 const cart = [
@@ -121,12 +117,13 @@ console.log(countTotal);
 // 출력: 6
 
 // map 과 reduce 를 이어 쓸 수도 있습니다. 뜻이 더 잘 보일 때가 있습니다.
-const total2 = cart.map((item) => item.price * item.count).reduce((acc, n) => acc + n, 0);
+const total2 = cart
+  .map((item) => item.price * item.count)
+  .reduce((acc, n) => acc + n, 0);
 console.log(total2);
 // 출력: 23000
 
 // ✏️ 직접 해보기 3 — cart 에서 단가(price)의 합만 구해 보세요.
-
 
 // ── 섹션 5: 최댓값 구하기 ──
 
@@ -158,25 +155,19 @@ console.log(Math.max(...scores));
 // 출력: 90
 
 // 객체 배열에서 "가장 비싼 것" 을 찾을 때는 reduce 가 유용합니다.
-const expensive = cart.reduce((acc, item) => (item.price > acc.price ? item : acc), cart[0]);
+const expensive = cart.reduce(
+  (acc, item) => (item.price > acc.price ? item : acc),
+  cart[0],
+);
 console.log(expensive.name);
 // 출력: 케이크
 
 // ✏️ 직접 해보기 4 — scores 의 최솟값을 reduce 로 구해 보세요.
 
-
 // ── 섹션 6: 개수 세기 — 결과가 객체인 경우 ──
 
 // reduce 의 결과가 꼭 숫자일 필요는 없습니다. 객체도 됩니다.
-const votes = ["짜장", "짬뽕", "짜장", "볶음밥", "짜장", "짬뽕"];
-
-const counts = votes.reduce((acc, item) => {
-  // acc[item] 이 아직 없으면 0에서 시작
-  acc[item] = (acc[item] ?? 0) + 1;
-  return acc; // 매 바퀴 acc 를 돌려줘야 합니다
-}, {});
-
-console.log(counts);
+F;
 // 출력: { '짜장': 3, '짬뽕': 2, '볶음밥': 1 }
 
 // 시작값이 빈 객체 {} 라는 점이 핵심입니다.
@@ -191,7 +182,6 @@ console.log(counts2);
 // 출력: { '짜장': 3, '짬뽕': 2, '볶음밥': 1 }
 
 // ✏️ 직접 해보기 5 — ["A", "B", "A", "A"] 의 개수를 세어 보세요.
-
 
 // ── 섹션 7: 언제 reduce 를 쓸까 ──
 
@@ -209,7 +199,6 @@ console.log(scores.reduce((acc, n) => (n >= 80 ? acc.concat(n) : acc), []));
 console.log(scores.filter((n) => n >= 80));
 // 출력: [ 90, 88 ]
 // filter 를 쓰세요.
-
 
 // ── 섹션 8: 자주 하는 실수 ──
 
@@ -232,7 +221,6 @@ console.log([10, 20, 30].reduce((n, acc) => n + acc, 0));
 // [].reduce((a, b) => a + b);
 // 실수: TypeError. 시작값을 주면 해결됩니다.
 
-
 // ── 정리 ──
 
 // 1. 배열.reduce((acc, 값) => 새acc, 시작값) — 배열을 값 하나로 줄인다.
@@ -240,7 +228,6 @@ console.log([10, 20, 30].reduce((n, acc) => n + acc, 0));
 // 3. 시작값은 항상 쓴다. 숫자 0, 글자 "", 배열 [], 객체 {}.
 // 4. 결과가 객체나 배열이어도 된다. (개수 세기)
 // 5. 어렵게 느껴지면 for 문으로 쓰고, 익숙해지면 바꿔라.
-
 
 // ============================================================
 // 직접 해보기 정답

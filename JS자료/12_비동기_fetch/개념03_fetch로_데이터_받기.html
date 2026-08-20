@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -58,18 +58,19 @@
     <h1>개념 03 — fetch 로 데이터 받기</h1>
 
     <p class="guide">
-      <strong>인터넷 연결이 필요합니다.</strong> 브라우저로 열고 버튼을 눌러 보세요.
-      <strong>F12 → Console</strong> 과 <strong>Network</strong> 탭을 함께 보면 실제로
-      데이터를 받아오는 게 보입니다.
-    
+      <strong>인터넷 연결이 필요합니다.</strong> 브라우저로 열고 버튼을 눌러
+      보세요. <strong>F12 → Console</strong> 과 <strong>Network</strong> 탭을
+      함께 보면 실제로 데이터를 받아오는 게 보입니다.
+
       <br /><br />
       <strong>인터넷이 막혀 있어 안 된다면</strong> 이 파일 아래쪽
-      <code>&lt;script&gt;</code> 바로 위에 있는 <code>오프라인_대체.js</code> 줄에서
-      주석 기호를 지우세요. 인터넷 없이도 똑같이 동작합니다.
-      <br /><br />
+      <code>&lt;script&gt;</code> 바로 위에 있는
+      <code>오프라인_대체.js</code> 줄에서 주석 기호를 지우세요. 인터넷 없이도
+      똑같이 동작합니다. <br /><br />
       <strong>HTML 과 CSS 는 몰라도 됩니다.</strong> 이 파일 위쪽의
-      <code>&lt;style&gt;</code> 과 <code>&lt;body&gt;</code> 는 화면 모양을 만드는 코드입니다.
-      이 자료에서는 가르치지 않습니다. <code>&lt;script&gt;</code> 안부터 읽으세요.
+      <code>&lt;style&gt;</code> 과 <code>&lt;body&gt;</code> 는 화면 모양을
+      만드는 코드입니다. 이 자료에서는 가르치지 않습니다.
+      <code>&lt;script&gt;</code> 안부터 읽으세요.
     </p>
 
     <div class="demo">
@@ -131,7 +132,9 @@
           })
           .then((data) => {
             console.log("데이터:", data);
-            out1.textContent = data.title;
+            out1.textContent = data.body;
+            console.log(data.title);
+            console.log(data.userId);
           })
           .catch((error) => {
             out1.textContent = "가져오지 못했습니다";
@@ -222,7 +225,10 @@
               userList.appendChild(li);
             });
 
-            console.log("사용자 이름들:", users.map((u) => u.name));
+            console.log(
+              "사용자 이메일들:",
+              users.map((u) => u.email),
+            );
           })
           .catch(() => {
             userList.innerHTML = "<li>불러오지 못했습니다</li>";
@@ -280,6 +286,11 @@
 
       // ✏️ 직접 해보기 6 — { name: "홍길동", age: 20 } 을 JSON.stringify 로 바꿔 찍고,
       //                    그 결과를 다시 JSON.parse 로 되돌려 age 만 꺼내 보세요.
+      const jsonString = JSON.stringify({ name: "홍길동", age: 20 });
+      console.log(jsonString);
+
+      const parsedObj = JSON.parse(jsonString);
+      console.log(parsedObj.age);
 
       // ── 섹션 7: 자주 하는 실수 ──
 

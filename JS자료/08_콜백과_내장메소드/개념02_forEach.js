@@ -14,7 +14,6 @@
 //
 //     배열.forEach((값) => { 할 일 });
 
-
 // ── 섹션 1: for...of 를 forEach 로 ──
 
 const fruits = ["사과", "바나나", "포도"];
@@ -48,7 +47,6 @@ fruits.forEach((fruit) => console.log(fruit));
 
 // ✏️ 직접 해보기 1 — 숫자 배열 [10, 20, 30] 을 forEach 로 출력해 보세요.
 
-
 // ── 섹션 2: 인덱스도 받을 수 있다 ──
 
 // 콜백의 두 번째 매개변수로 인덱스가 넘어옵니다.
@@ -80,7 +78,6 @@ fruits.forEach((fruit, index, array) => {
 // ✏️ 직접 해보기 2 — 아래 배열을 "1. 국어" 형태로 출력해 보세요.
 //                    const subjects = ["국어", "영어", "수학"];
 
-
 // ── 섹션 3: 객체 배열에 쓰기 ──
 
 const cart = [
@@ -105,7 +102,6 @@ console.log(`합계 ${total}원`);
 // (합계는 개념05의 reduce 로 더 깔끔하게 쓸 수 있습니다)
 
 // ✏️ 직접 해보기 3 — cart 의 상품 이름만 한 줄씩 출력해 보세요.
-
 
 // ── 섹션 4: forEach 는 아무것도 돌려주지 않는다 ──
 
@@ -134,7 +130,6 @@ numbers2.forEach((n, i) => {
 console.log(numbers2);
 // 출력: [ 2, 4, 6 ]
 // 이렇게 쓰지 말고 map 을 쓰세요.
-
 
 // ── 섹션 5: forEach 는 중간에 멈출 수 없다 ──
 
@@ -171,8 +166,12 @@ for (const fruit of fruits) {
 
 // ✏️ 직접 해보기 4 — forEach 로 짝수만 출력해 보세요. (홀수는 return 으로 건너뛰기)
 
-
 // ── 섹션 6: for 문과 비교해서 언제 무엇을 ──
+const arr=[1,2,3,4,5,6,7,8,9];
+arr.forEach((nums)=>{
+  if(nums%2===1){return;}
+  console.log(nums);
+}
 
 const list = ["a", "b", "c"];
 
@@ -199,7 +198,6 @@ for (let i = list.length - 1; i >= 0; i--) {
 // 출력: for(거꾸로) a
 
 // 실무에서는 forEach 와 for...of 를 가장 많이 씁니다.
-
 
 // ── 섹션 7: 자주 하는 실수 ──
 
@@ -241,7 +239,6 @@ fruits.forEach((index, fruit) => {
 // 실수: 이름만 바꿨을 뿐 넘어오는 순서는 (값, 인덱스) 로 고정입니다.
 //       이름에 속아 값과 인덱스가 뒤바뀐 코드를 쓰게 됩니다.
 
-
 // ── 정리 ──
 
 // 1. 배열.forEach((값, 인덱스) => { ... })
@@ -249,7 +246,6 @@ fruits.forEach((index, fruit) => {
 // 3. forEach 는 undefined 를 돌려준다. 새 배열이 필요하면 map.
 // 4. break 를 쓸 수 없다. return 은 continue 처럼 동작한다.
 // 5. 중간에 멈춰야 하면 for / for...of 를 쓴다.
-
 
 // ============================================================
 // 직접 해보기 정답

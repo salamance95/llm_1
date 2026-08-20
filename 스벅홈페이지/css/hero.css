@@ -1,0 +1,294 @@
+.hero {
+  background:
+    linear-gradient(120deg, rgba(232, 244, 238, 0.96), rgba(255, 248, 237, 0.96)),
+    radial-gradient(circle at 80% 30%, rgba(0, 98, 65, 0.16), transparent 30%);
+}
+
+.hero-inner {
+  min-height: 560px;
+  display: grid;
+  grid-template-columns: 0.72fr 1.28fr;
+  align-items: center;
+  gap: 28px;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-title-image {
+  width: min(100%, 360px);
+  margin-bottom: 24px;
+  object-fit: contain;
+}
+
+.hero-more {
+  min-height: 34px;
+  padding: 0 16px;
+  border-width: 2px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.drink-showcase {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  align-items: end;
+  justify-items: center;
+}
+
+.drink-item {
+  margin: 0;
+  width: 100%;
+  min-height: 390px;
+  display: grid;
+  grid-template-rows: 300px 86px;
+  align-items: end;
+  justify-items: center;
+  gap: 10px;
+  min-width: 0;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: drinkAppear 0.72s ease forwards;
+}
+
+.drink-item:nth-child(1) {
+  animation-delay: 0.18s;
+}
+
+.drink-item:nth-child(2) {
+  animation-delay: 0.38s;
+}
+
+.drink-item:nth-child(3) {
+  animation-delay: 0.58s;
+}
+
+.drink-item:nth-child(4) {
+  animation-delay: 0.78s;
+}
+
+.drink-photo {
+  width: 210px;
+  height: 300px;
+  max-width: 96%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 18px 18px rgba(20, 32, 25, 0.12));
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 68%, rgba(0, 0, 0, 0.72) 82%, transparent 100%);
+  mask-image: radial-gradient(ellipse at center, #000 68%, rgba(0, 0, 0, 0.72) 82%, transparent 100%);
+}
+
+.drink-label {
+  width: 168px;
+  height: 76px;
+  max-width: 94%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 10%, #000 90%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 10%, #000 90%, transparent 100%);
+}
+
+@keyframes drinkAppear {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drink-item {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+.notice-rewards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 72px;
+}
+
+.notice,
+.rewards-strip {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  padding: 18px max(24px, calc((100vw - 1180px) / 2 + 20px));
+}
+
+.notice {
+  background: #111;
+  color: var(--white);
+}
+
+.rewards-strip {
+  background: var(--cream);
+  color: var(--green);
+}
+
+.notice span,
+.rewards-strip span {
+  font-weight: 900;
+}
+
+.notice a,
+.rewards-strip a {
+  min-width: 0;
+}
+
+.notice-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.notice-icon-dark {
+  color: var(--green);
+  font-size: 1.2rem;
+}
+
+.rewards-join {
+  background: #1e3932;
+  color: var(--white);
+}
+
+.rewards-join-inner {
+  min-height: 220px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 34px;
+  align-items: center;
+  padding: 30px 0;
+}
+
+.rewards-logo-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.rewards-logo-wrap img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.rewards-content {
+  min-width: 0;
+}
+
+.rewards-main {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 28px;
+  align-items: end;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.rewards-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.rewards-heading h2,
+.rewards-heading span {
+  margin: 0;
+  color: var(--white);
+  font-size: clamp(1.7rem, 2.6vw, 2.35rem);
+  line-height: 1.15;
+}
+
+.rewards-heading span {
+  font-weight: 400;
+}
+
+.rewards-heading strong {
+  font-weight: 800;
+}
+
+.rewards-text p {
+  margin: 7px 0;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.6;
+}
+
+.rewards-text strong {
+  color: var(--white);
+}
+
+.rewards-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.reward-signup,
+.reward-login,
+.reward-gift {
+  min-height: 38px;
+  border-radius: 4px;
+  padding: 0 18px;
+  font-size: 0.9rem;
+}
+
+.reward-signup {
+  background: #00754a;
+  color: var(--white);
+}
+
+.reward-login,
+.reward-gift {
+  border: 1px solid var(--white);
+  background: transparent;
+  color: var(--white);
+}
+
+.reward-signup:hover,
+.reward-signup:focus-visible {
+  background: #006241;
+}
+
+.reward-login:hover,
+.reward-login:focus-visible,
+.reward-gift:hover,
+.reward-gift:focus-visible {
+  background: var(--white);
+  color: #1e3932;
+}
+
+.rewards-card-gift {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding-top: 18px;
+}
+
+.rewards-card-gift p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.86);
+  line-height: 1.65;
+}

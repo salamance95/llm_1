@@ -1,11 +1,34 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>11단원 개념03 - input 과 change</title>
+    <link rel="stylesheet" href="./연습장.css" />
+    <script src="./연습장.js" defer></script>
+    <link />
   </head>
   <body>
-    <script src="연습장.js"></script>
+    <p class="guide">
+      브라우저로 열고 입력한 뒤 <strong>추가</strong> 버튼을 누르거나
+      <strong>Enter</strong> 를 쳐 보세요. <strong>F12 → Console</strong> 도
+      함께 보세요.
+
+      <br /><br />
+      <strong>HTML 과 CSS 는 몰라도 됩니다.</strong> 이 파일 위쪽의
+      <code>&lt;style&gt;</code> 과 <code>&lt;body&gt;</code> 는 화면 모양을
+      만드는 코드입니다. 이 자료에서는 가르치지 않습니다.
+      <code>&lt;script&gt;</code> 안부터 읽으세요.
+    </p>
+
+    <div class="demo">
+      <h3>① 할 일 추가하기</h3>
+      <form id="todoForm">
+        <label for="todoInput">할 일</label>
+        <input type="text" id="todoInput" placeholder="예: 장보기" />
+        <button type="submit">추가</button>
+        <div class="error" id="errorMsg"></div>
+      </form>
+      <ul id="todoList"></ul>
+    </div>
   </body>
 </html>
