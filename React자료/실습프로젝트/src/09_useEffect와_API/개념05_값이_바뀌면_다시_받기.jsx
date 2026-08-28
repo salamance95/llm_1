@@ -62,6 +62,7 @@ function UserPickerDemo() {
       <button onClick={() => setUserId(1)}>1번</button>
       <button onClick={() => setUserId(2)}>2번</button>
       <button onClick={() => setUserId(3)}>3번</button>
+      <button onClick={() => setUserId(3)}>4번</button>
 
       {loading ? (
         <p className="output">불러오는 중...</p>
@@ -120,7 +121,9 @@ function SearchDemo() {
       const res = await fetch(`${BASE_URL}/posts?userId=${keyword}&_limit=3`);
       const data = await res.json();
 
-      console.log(`[검색] userId 가 ${keyword} 인 글 ${data.length}개를 받았습니다`);
+      console.log(
+        `[검색] userId 가 ${keyword} 인 글 ${data.length}개를 받았습니다`,
+      );
       // 콘솔: [검색] userId 가 1 인 글 3개를 받았습니다
 
       setPosts(data);
@@ -204,7 +207,7 @@ function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-const SLOW_ID = 1; // 이 번호만 일부러 늦게 답합니다
+const SLOW_ID = 2; // 이 번호만 일부러 늦게 답합니다
 const SLOW_MS = 250; // 얼마나 늦출지
 
 function RaceProblemDemo() {
@@ -225,7 +228,9 @@ function RaceProblemDemo() {
         await wait(SLOW_MS); // 1번만 일부러 늦게 도착하게 만듭니다
       }
 
-      console.log(`[문제] ${userId}번 응답 도착 → 화면에 그립니다: ${data.name}`);
+      console.log(
+        `[문제] ${userId}번 응답 도착 → 화면에 그립니다: ${data.name}`,
+      );
       // 콘솔: [문제] 2번 응답 도착 → 화면에 그립니다: Ervin Howell
       // 콘솔: [문제] 1번 응답 도착 → 화면에 그립니다: Leanne Graham
 
@@ -335,7 +340,9 @@ function RaceFixedDemo() {
         return; // state 를 건드리지 않고 끝냅니다
       }
 
-      console.log(`[해결] ${userId}번 응답 도착 → 화면에 그립니다: ${data.name}`);
+      console.log(
+        `[해결] ${userId}번 응답 도착 → 화면에 그립니다: ${data.name}`,
+      );
       // 콘솔: [해결] 2번 응답 도착 → 화면에 그립니다: Ervin Howell
 
       setName(data.name);
@@ -432,15 +439,15 @@ export default function Concept05RefetchOnChange() {
       <h1>개념 05 — 값이 바뀌면 다시 받기</h1>
 
       <p className="guide">
-        <strong>인터넷 연결이 필요합니다.</strong> <strong>F12 → Console</strong> 을 함께
-        열어 두세요. 요청이 몇 번 나가는지 콘솔로 세어 볼 수 있습니다.
+        <strong>인터넷 연결이 필요합니다.</strong>{" "}
+        <strong>F12 → Console</strong> 을 함께 열어 두세요. 요청이 몇 번
+        나가는지 콘솔로 세어 볼 수 있습니다.
         <br />
-        <br />③ 번 상자는 <strong>일부러 틀리게 만든 예제</strong>입니다. 화면이 뒤늦게
-        옛날 이름으로 되돌아가는 것이 정상입니다. ④ 번이 고친 것입니다.
+        <br />③ 번 상자는 <strong>일부러 틀리게 만든 예제</strong>입니다. 화면이
+        뒤늦게 옛날 이름으로 되돌아가는 것이 정상입니다. ④ 번이 고친 것입니다.
         <br />
-        <br />
-        이 연습용 서버의 사람 이름은 <strong>영어</strong>입니다. Leanne Graham 처럼 나오는
-        것이 정상입니다.
+        <br />이 연습용 서버의 사람 이름은 <strong>영어</strong>입니다. Leanne
+        Graham 처럼 나오는 것이 정상입니다.
       </p>
 
       <UserPickerDemo />

@@ -23,7 +23,7 @@
 // ★ 인터넷이 막힌 실습실이라면 실습프로젝트 폴더의 index.html 에서
 //   오프라인_대체.js 줄을 감싼 주석만 지우세요.
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Summary from "../_ui/Summary.jsx";
 
 const BASE_URL = "https://jsonplaceholder.typicode.com";
@@ -38,7 +38,9 @@ const BASE_URL = "https://jsonplaceholder.typicode.com";
 //                  한 줄도 안 나오면 useEffect 를 안 썼거나 함수를 안 넘긴 것입니다.
 
 function Problem01() {
-  // TODO: 여기에 useEffect 를 쓰세요 (의존성 배열을 잊지 마세요)
+  useEffect(() => {
+    console.log("09단원 시작합니다.");
+  });
 
   return (
     <div className="demo">
@@ -60,7 +62,9 @@ function Problem01() {
 function Problem02() {
   const [tick, setTick] = useState(0);
 
-  // TODO: 여기에 useEffect 를 쓰세요
+  useEffect(() => {
+    console.log("다시 그렸습니다.");
+  }, [tick]);
 
   return (
     <div className="demo">
@@ -83,7 +87,9 @@ function Problem03() {
   const [count, setCount] = useState(0);
   const [menu, setMenu] = useState("아메리카노");
 
-  // TODO: 여기에 useEffect 를 쓰세요
+  useEffect(() => {
+    console.log("지금 잔수:", count);
+  }, [count]);
 
   return (
     <div className="demo">
@@ -92,7 +98,9 @@ function Problem03() {
         {menu} {count}잔
       </p>
       <button onClick={() => setCount(count + 1)}>잔 수 +1</button>
-      <button onClick={() => setMenu(menu === "아메리카노" ? "라떼" : "아메리카노")}>
+      <button
+        onClick={() => setMenu(menu === "아메리카노" ? "라떼" : "아메리카노")}
+      >
         메뉴 바꾸기
       </button>
     </div>
@@ -110,7 +118,10 @@ function Problem03() {
 function Problem04() {
   const [todoCount, setTodoCount] = useState(0);
 
-  // TODO: 여기에 useEffect 를 쓰세요
+  useEffect(() => {
+    document.title = `할일 ${todoCount}개`;
+    console.log("탭 제목:", document.title);
+  }, [todoCount]);
 
   return (
     <div className="demo">
@@ -136,7 +147,15 @@ function Problem04() {
 function Problem05() {
   const [seconds, setSeconds] = useState(0);
 
-  // TODO: 여기에 useEffect 를 쓰세요. 정리 함수도 함께 쓰세요.
+  useEffect(() => {
+    const id = setInterval(() => {
+      setSeconds((prev) => prev + 1);
+    }, 1000);
+    return () => {
+      clearInterval(id);
+      console.log("타이머를 껐습니다");
+    };
+  }, []);
 
   return (
     <div className="demo">
@@ -158,7 +177,10 @@ function Problem05() {
 //
 // 기대 결과: 예상한 뒤에 직접 확인하세요. 정답은 정답 파일에 있습니다.
 //           화면에는 아무 변화가 없습니다. 콘솔만 보세요.
-
+// 다. 다른 예제를 고르면 이 컴포넌트가 화면에서 사라지므로 정리 함수가 불립니다.
+//   돌아오면 새로 마운트되는데, StrictMode 가 붙였다 뗐다 다시 붙이므로
+//   그때도 정리 함수가 한 번 불립니다.
+//   그래서 콘솔에는 "켰습니다 → 껐습니다 → 켰습니다" 순서로 세 줄이 나옵니다.ㅈ
 // (문제 6은 문제 5의 코드를 고치는 문제입니다. 따로 만들 것이 없습니다)
 
 // ───── 문제 7 ───── (개념03)
@@ -171,10 +193,15 @@ function Problem05() {
 
 function Problem07() {
   const [title, setTitle] = useState("아직 못 받았습니다");
+  useEffect(() => {
+    async function loadPost() {
+      const res = await fetch(`${BASE_URL}` / posts / 3);
+      const data = await res.json();
+      console.log(`제목:${data.title}`);
 
-  // TODO: 여기에 useEffect 를 쓰세요
-  //       안에 async 함수를 만들고, 만든 함수를 부르는 것을 잊지 마세요.
-
+      setTitle(data.title);
+    }
+  });
   return (
     <div className="demo">
       <h3>문제 7 — 글 하나 받아오기</h3>
@@ -191,10 +218,25 @@ function Problem07() {
 //                  콘솔에 key 경고가 뜨면 key 를 안 붙인 것입니다.
 //                  화면이 빨간 상자가 되면 초기값을 null 로 두고 map 을 부른 것입니다.
 
-function Problem08() {
+function Answer08() {
   const [users, setUsers] = useState([]);
 
-  // TODO: 여기에 useEffect 를 쓰세요
+  useEffect(() => {
+    async function loadUsers() {
+      const res = await fetch(`${BASE_URL}/users?_limit=3`);
+      const data = await res.json();
+
+      console.log(
+        "문제8 이름들:",
+        data.map((user) => user.name),
+      );
+      // 콘솔: 문제8 이름들: ['Leanne Graham', 'Ervin Howell', 'Clementine Bauch']
+
+      setUsers(data);
+    }
+
+    loadUsers();
+  }, []);
 
   return (
     <div className="demo">
@@ -236,11 +278,30 @@ function Problem09() {
 //                  이 줄이 안 나오면 res.ok 검사를 빠뜨린 것입니다. 404 는 catch 로 안 갑니다.
 //                  콘솔에 빨간 Failed to load resource 줄이 함께 나오는 것은 정상입니다.
 
-function Problem10() {
+function Answer10() {
   const [message, setMessage] = useState("확인 중");
 
-  // TODO: 여기에 useEffect 를 쓰세요
-  //       try / catch 로 감싸고, catch 안에서 setMessage("에러가 났습니다") 도 해 주세요.
+  useEffect(() => {
+    async function loadPost() {
+      try {
+        const res = await fetch(`${BASE_URL}/posts/9999`);
+
+        if (!res.ok) {
+          throw new Error(`서버 응답 오류 (${res.status})`);
+        }
+
+        const data = await res.json();
+        setMessage(data.title);
+      } catch (err) {
+        console.log("문제10 에러:", err.message);
+        // 콘솔: 문제10 에러: 서버 응답 오류 (404)
+
+        setMessage("에러가 났습니다");
+      }
+    }
+
+    loadPost();
+  }, []);
 
   return (
     <div className="demo">
@@ -265,8 +326,6 @@ function Problem11() {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // TODO: 여기에 useEffect 를 쓰세요
 
   return (
     <div className="demo">
@@ -389,21 +448,23 @@ export default function Unit09Exercises() {
       <h1>09단원 연습문제 (14문항)</h1>
 
       <p className="guide">
-        각 상자의 <strong>TODO</strong> 자리를 채우세요. 저장하면 화면이 저절로 다시
-        그려집니다.
+        각 상자의 <strong>TODO</strong> 자리를 채우세요. 저장하면 화면이 저절로
+        다시 그려집니다.
         <br />
         <br />
-        <strong>F12 → Console</strong> 을 함께 열어 두세요. 콘솔로 확인하는 문제가 많습니다.
-        같은 줄이 두 번씩 찍히는 것은 정상입니다(개념02 StrictMode).
+        <strong>F12 → Console</strong> 을 함께 열어 두세요. 콘솔로 확인하는
+        문제가 많습니다. 같은 줄이 두 번씩 찍히는 것은 정상입니다(개념02
+        StrictMode).
         <br />
         <br />
-        7번부터는 <strong>인터넷 연결이 필요합니다.</strong> 막혀 있다면 실습프로젝트
-        폴더의 <code>index.html</code> 에서 <code>오프라인_대체.js</code> 줄을 감싼 주석만
-        지우세요.
+        7번부터는 <strong>인터넷 연결이 필요합니다.</strong> 막혀 있다면
+        실습프로젝트 폴더의 <code>index.html</code> 에서{" "}
+        <code>오프라인_대체.js</code> 줄을 감싼 주석만 지우세요.
         <br />
         <br />
         10 · 11번은 <strong>일부러 없는 글을 요청</strong>합니다. 콘솔에 빨간{" "}
-        <code>Failed to load resource ... 404</code> 줄이 나오는 것이 정상입니다.
+        <code>Failed to load resource ... 404</code> 줄이 나오는 것이
+        정상입니다.
       </p>
 
       <Problem01 />
