@@ -18,7 +18,6 @@ const path = require("path");
 
 const 이폴더 = __dirname;
 
-
 // ── 섹션 1: .env 파일 모양 ──
 
 // 옆의 .env 파일을 열어 보세요. 이렇게 생겼습니다.
@@ -34,7 +33,6 @@ const 이폴더 = __dirname;
 //   · 이름=값   (등호 앞뒤 공백은 있어도 됩니다)
 //   · 이름은 대문자와 밑줄
 //   · 따옴표는 없어도 됩니다
-
 
 // ── 섹션 2: Node 가 직접 읽어 줍니다 ──
 
@@ -65,7 +63,6 @@ console.log(process.env.CORS_ORIGINS);
 // ★ 값은 여전히 전부 글자입니다. 파일에서 읽어도 마찬가지입니다.
 console.log(typeof process.env.PORT);
 // 출력: string
-
 
 // ── 섹션 3: ★★ 이미 있는 값은 안 덮어씁니다 ──
 
@@ -104,7 +101,6 @@ const 우선순위 = [
 //   → 터미널에 그 값이 이미 설정돼 있는 것입니다.
 //     PowerShell 에서 $env:PORT 를 한 번 정하면 그 창이 닫힐 때까지 남습니다.
 
-
 // ── 섹션 4: 값 쓰는 법 (실제로 재 봤습니다) ──
 
 // .env.시험 이라는 파일에 이렇게 적고 읽어 봤습니다.
@@ -114,13 +110,17 @@ const 우선순위 = [
 //   HASH_TEST=값 # 이건 주석인가  →  값                 (# 뒤는 잘립니다)
 //   EQ_TEST=a=b=c               →  a=b=c              (첫 = 만 구분자)
 //   EMPTY_TEST=                 →  ""                 (빈 글자)
-
+console.log("QUOTE_TEST", process.env.QUOTE_TEST);
+console.log("SPACE_TEST", process.env.SPACE_TEST);
+console.log("HASH_TEST", process.env.HASH_TEST);
+console.log("EQ_TEST", process.env.EQ_TEST);
+console.log("EMPTY_TEST=", process.env.EMPTY_TEST);
 const 형식규칙 = {
-  '값에 공백이 있으면': '따옴표로 감싸세요.  이름="앞 뒤 공백"',
+  "값에 공백이 있으면": '따옴표로 감싸세요.  이름="앞 뒤 공백"',
   "값에 # 이 들어가면": "따옴표로 감싸세요. 안 그러면 그 뒤가 잘립니다",
   "값에 = 이 들어가면": "그대로 써도 됩니다. 첫 = 만 구분자입니다",
   "값을 비우면": "빈 글자가 됩니다. undefined 가 아닙니다",
-  "줄바꿈이 필요하면": '따옴표 안에 \\n 을 쓰거나, 값을 한 줄로 만드세요',
+  "줄바꿈이 필요하면": "따옴표 안에 \\n 을 쓰거나, 값을 한 줄로 만드세요",
 };
 
 for (const 경우 of Object.keys(형식규칙)) {
@@ -141,7 +141,6 @@ for (const 경우 of Object.keys(형식규칙)) {
 //   그리고 에러가 안 납니다. 그냥 로그인이 안 될 뿐입니다.
 //   비밀번호는 따옴표로 감싸는 습관을 들이세요.
 
-
 // ── 섹션 5: dotenv 패키지 ──
 
 // Node 에 기능이 들어오기 전에는 dotenv 라는 패키지를 썼습니다.
@@ -154,7 +153,8 @@ console.log(process.env.PORT);
 
 // ★ 결과는 같습니다. 무엇을 쓸까요?
 const 비교 = {
-  "Node 내장 (--env-file / loadEnvFile)": "설치가 필요 없습니다. --env-file 은 20.6, loadEnvFile 은 20.12 이상",
+  "Node 내장 (--env-file / loadEnvFile)":
+    "설치가 필요 없습니다. --env-file 은 20.6, loadEnvFile 은 20.12 이상",
   "dotenv 패키지": "옛날 Node 에서도 됩니다. 자료·블로그가 전부 이걸 씁니다",
   결론: "새로 시작하면 내장을 쓰세요. 남의 코드에서 dotenv 를 보면 같은 것이라고 알면 됩니다",
 };
@@ -168,7 +168,6 @@ for (const 것 of Object.keys(비교)) {
 
 // ★ dotenv 도 '이미 있는 값은 안 덮어쓴다' 가 기본입니다.
 //   덮어쓰려면 config({ override: true }) 를 줘야 합니다.
-
 
 // ── 섹션 6: .env · .env.예시 · .gitignore ──
 
@@ -209,12 +208,12 @@ for (const 파일 of Object.keys(세파일)) {
 //   ★ 그래도 '기록' 에는 남아 있습니다.
 //     그 비밀번호는 이미 새어 나간 것으로 보고 바꿔야 합니다.
 
-
 // ── 섹션 7: 환경이 여럿일 때 ──
 
 const 환경별 = {
   "개발 (내 컴퓨터)": ".env                  Git 에 안 올림",
-  "시험 (test)": ".env.test              Git 에 올려도 됨. 진짜 값이 없으니까요",
+  "시험 (test)":
+    ".env.test              Git 에 올려도 됨. 진짜 값이 없으니까요",
   "운영 (진짜 서버)": "파일 없음. 서버·PM2 설정으로 (07단원)",
 };
 
@@ -228,7 +227,6 @@ for (const 환경 of Object.keys(환경별)) {
 // ★ 운영에 .env 파일을 두지 않는 것이 안전합니다.
 //   파일이 없으면 실수로 복사하거나 열어 볼 일도 없습니다.
 //   PM2 나 Docker 에 설정해 두면 됩니다. 07단원에서 합니다.
-
 
 // ============================================================
 // 직접 해 볼 것
@@ -255,7 +253,6 @@ for (const 환경 of Object.keys(환경별)) {
 // ✏️ 직접 해보기 6 — .gitignore 를 열어 보세요. !.env.예시 가 왜 있을까요?
 //                    (힌트: 바로 위 줄에서 .env* 로 전부 막았습니다)
 //                    .env* 를 .env 한 줄로 바꾸면 !.env.예시 는 어떻게 되나요?
-
 
 // ── 자주 하는 실수 ──
 

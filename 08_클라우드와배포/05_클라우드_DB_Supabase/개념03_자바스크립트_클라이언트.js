@@ -1,17 +1,20 @@
 // ============================================================
 // 개념 03 — 자바스크립트 클라이언트
 // ============================================================
-//
+
 // Supabase 는 표를 만들면 REST API 가 자동으로 생깁니다.
 // 그 API 를 편하게 부르는 것이 @supabase/supabase-js 입니다.
-//
+
 // 이 파일은 인터넷 없이 돕니다. 가짜Supabase.js 가 대답합니다.
 // 대신 **요청 주소는 진짜 클라이언트가 만든 것** 입니다. 그대로 믿어도 됩니다.
-//
+
 // 실행: node 개념03_자바스크립트_클라이언트.js
 // ============================================================
 
-const { 기록하는클라이언트, 표있는클라이언트 } = require("./가짜Supabase");
+const {
+  기록하는클라이언트,
+  표있는클라이언트,
+} = require("@supabase/supabase-js");
 
 // ============================================================
 // 1. 만들기
@@ -41,12 +44,20 @@ async function 요청보기() {
   await 기록용.from("equipments").select("id, name");
   await 기록용.from("equipments").select("*").eq("line", "A");
   await 기록용.from("equipments").select("*").neq("status", "정지");
-  await 기록용.from("equipments").select("*").gte("temperature", 30).lt("temperature", 40);
+  await 기록용
+    .from("equipments")
+    .select("*")
+    .gte("temperature", 30)
+    .lt("temperature", 40);
   await 기록용.from("equipments").select("*").in("line", ["A", "B"]);
   await 기록용.from("equipments").select("*").is("temperature", null);
   await 기록용.from("equipments").select("*").ilike("name", "%로봇%");
   await 기록용.from("equipments").select("*").or("line.eq.A,line.eq.B");
-  await 기록용.from("equipments").select("*").order("temperature", { ascending: false }).order("id");
+  await 기록용
+    .from("equipments")
+    .select("*")
+    .order("temperature", { ascending: false })
+    .order("id");
   await 기록용.from("equipments").select("*").range(20, 39);
   await 기록용.from("equipments").select("*").limit(5);
 
@@ -90,11 +101,32 @@ async function 요청보기() {
 // ============================================================
 
 async function 다음() {
-  const { 클라이언트: sb } = 표있는클라이언트([
-    { id: 1, name: "용접로봇 1호", line: "A", status: "가동", temperature: 36.5 },
-    { id: 2, name: "프레스 1호", line: "A", status: "정지", temperature: 41.2 },
-    { id: 3, name: "컨베이어 1호", line: "B", status: "가동", temperature: null },
-  ], { 겹치면안되는칸: "name" });
+  const { 클라이언트: sb } = 표있는클라이언트(
+    [
+      {
+        id: 1,
+        name: "용접로봇 1호",
+        line: "A",
+        status: "가동",
+        temperature: 36.5,
+      },
+      {
+        id: 2,
+        name: "프레스 1호",
+        line: "A",
+        status: "정지",
+        temperature: 41.2,
+      },
+      {
+        id: 3,
+        name: "컨베이어 1호",
+        line: "B",
+        status: "가동",
+        temperature: null,
+      },
+    ],
+    { 겹치면안되는칸: "name" },
+  );
 
   const 결과 = await sb.from("equipments").select("id, name").eq("line", "A");
 
@@ -144,12 +176,32 @@ async function 하나꺼내기(sb) {
   console.log("single 있음:", 있는것.data.name, "| error:", 있는것.error);
   // 출력: single 있음: 용접로봇 1호 | error: null
 
-  const 없는것 = await sb.from("equipments").select("*").eq("id", 9999).single();
-  console.log("single 없음: data =", 없는것.data, "| code =", 없는것.error?.code, "| status =", 없는것.status);
+  const 없는것 = await sb
+    .from("equipments")
+    .select("*")
+    .eq("id", 9999)
+    .single();
+  console.log(
+    "single 없음: data =",
+    없는것.data,
+    "| code =",
+    없는것.error?.code,
+    "| status =",
+    없는것.status,
+  );
   // 출력: single 없음: data = null | code = PGRST116 | status = 406
 
-  const 없는것2 = await sb.from("equipments").select("*").eq("id", 9999).maybeSingle();
-  console.log("maybeSingle 없음: data =", 없는것2.data, "| error:", 없는것2.error);
+  const 없는것2 = await sb
+    .from("equipments")
+    .select("*")
+    .eq("id", 9999)
+    .maybeSingle();
+  console.log(
+    "maybeSingle 없음: data =",
+    없는것2.data,
+    "| error:",
+    없는것2.error,
+  );
   // 출력: maybeSingle 없음: data = null | error: null
 
   // ★★ 차이가 명확합니다.
@@ -196,7 +248,9 @@ async function 넣고고치기(sb) {
 
   // ★★ .select() 를 안 붙이면 만든 줄이 안 옵니다.
 
-  const 조용히 = await sb.from("equipments").insert({ name: "포장기 1호", line: "C" });
+  const 조용히 = await sb
+    .from("equipments")
+    .insert({ name: "포장기 1호", line: "C" });
   console.log("select 없이 insert:", 조용히.data, "| status:", 조용히.status);
   // 출력: select 없이 insert: null | status: 204
 
@@ -254,8 +308,17 @@ async function 넣고고치기(sb) {
   console.log("delete:", JSON.stringify(지운것.data.map((줄) => 줄.name)));
   // 출력: delete: ["검사기 1호"]
 
-  const 없는것지우기 = await sb.from("equipments").delete().eq("id", 9999).select();
-  console.log("없는 것 지우기:", JSON.stringify(없는것지우기.data), "| error:", 없는것지우기.error);
+  const 없는것지우기 = await sb
+    .from("equipments")
+    .delete()
+    .eq("id", 9999)
+    .select();
+  console.log(
+    "없는 것 지우기:",
+    JSON.stringify(없는것지우기.data),
+    "| error:",
+    없는것지우기.error,
+  );
   // 출력: 없는 것 지우기: [] | error: null
 
   // ★★ 없는 것을 지워도 오류가 아닙니다. 빈 배열입니다.
@@ -266,9 +329,15 @@ async function 넣고고치기(sb) {
   //     if (data.length === 0) return res.status(404)...
 
   // ── 있으면 고치고 없으면 넣기 (UPSERT) ──
-  await sb.from("equipments").upsert({ name: "펌프 1호", line: "C" }, { onConflict: "name" });
+  await sb
+    .from("equipments")
+    .upsert({ name: "펌프 1호", line: "C" }, { onConflict: "name" });
 
-  const 확인 = await sb.from("equipments").select("line").eq("name", "펌프 1호").single();
+  const 확인 = await sb
+    .from("equipments")
+    .select("line")
+    .eq("name", "펌프 1호")
+    .single();
   console.log("upsert 뒤 line:", 확인.data.line);
   // 출력: upsert 뒤 line: C
 
@@ -280,7 +349,10 @@ async function 넣고고치기(sb) {
 // ============================================================
 
 async function 오류처리(sb) {
-  const 중복 = await sb.from("equipments").insert({ name: "용접로봇 1호", line: "A" }).select();
+  const 중복 = await sb
+    .from("equipments")
+    .insert({ name: "용접로봇 1호", line: "A" })
+    .select();
 
   console.log("code:", 중복.error.code, "| status:", 중복.status);
   // 출력: code: 23505 | status: 409
@@ -333,7 +405,11 @@ async function 망가짐() {
 
   const 끊긴것 = createClient("https://example.supabase.co", "example-key", {
     auth: { persistSession: false },
-    global: { fetch: async () => { throw new TypeError("fetch failed"); } },
+    global: {
+      fetch: async () => {
+        throw new TypeError("fetch failed");
+      },
+    },
   });
 
   const 결과 = await 끊긴것.from("equipments").select();
@@ -373,7 +449,10 @@ async function 관계와함수() {
   const { 클라이언트: 기록용3, 기록: 기록3 } = 기록하는클라이언트();
 
   await 기록용3.from("equipments").select("id, name, checks(id, result)");
-  await 기록용3.from("equipments").select("*, checks!inner(id)").eq("checks.result", "이상");
+  await 기록용3
+    .from("equipments")
+    .select("*, checks!inner(id)")
+    .eq("checks.result", "이상");
   await 기록용3.from("checks").select("id, equipments(name)");
   await 기록용3.from("equipments").select("id, checks(count)");
 
@@ -442,36 +521,48 @@ async function 관계와함수() {
 function 마무리() {
   const { 클라이언트: 기록용5, 기록: 기록5 } = 기록하는클라이언트();
 
-  기록용5.from("t").select().eq("name", "볼트,너트").then(() => {
-    기록용5.from("t").select().in("name", ["볼트,너트", "와셔"]).then(() => {
-      기록용5.from("t").select().in("name", ['따옴표"있음', "와셔"]).then(() => {
-        기록5.forEach((것) => console.log(것.주소));
-        // 출력: /t?select=*&name=eq.볼트,너트
-        // 출력: /t?select=*&name=in.("볼트,너트",와셔)
-        // 출력: /t?select=*&name=in.(따옴표"있음,와셔)
+  기록용5
+    .from("t")
+    .select()
+    .eq("name", "볼트,너트")
+    .then(() => {
+      기록용5
+        .from("t")
+        .select()
+        .in("name", ["볼트,너트", "와셔"])
+        .then(() => {
+          기록용5
+            .from("t")
+            .select()
+            .in("name", ['따옴표"있음', "와셔"])
+            .then(() => {
+              기록5.forEach((것) => console.log(것.주소));
+              // 출력: /t?select=*&name=eq.볼트,너트
+              // 출력: /t?select=*&name=in.("볼트,너트",와셔)
+              // 출력: /t?select=*&name=in.(따옴표"있음,와셔)
 
-        // ★★ .in() 은 쉼표가 든 값을 따옴표로 감싸 줍니다. 잘 처리합니다.
-        //
-        // ★★★ 그런데 값 안에 **큰따옴표**가 있으면 감싸지 않습니다.
-        //   마지막 줄을 보세요. 따옴표가 그대로 들어가 있습니다.
-        //   PostgREST 가 이걸 어떻게 읽을지 보장되지 않습니다.
-        //
-        //   실제로 겪을 일이 드물지만, 사용자 입력을 .in() 에 그대로 넣지 마세요.
-        //   03단원에서 배운 대로 허용 목록으로 거르거나, 값을 검사하세요.
-        //
-        // ★ 이게 SQL 자리표시자와 다른 점입니다.
-        //   02단원의 ? 는 값이 무엇이든 완벽하게 지켜 줬습니다.
-        //   PostgREST 는 값을 **URL 문자열로 조립**합니다. 규칙이 더 약합니다.
-        //
-        //   그래도 SQL 인젝션은 안 됩니다. PostgREST 가 SQL 을 직접 만들지 않고
-        //   구조화된 형태로 해석하기 때문입니다.
-        //   다만 "이상한 값이 이상한 결과를 낸다" 는 있을 수 있습니다.
+              // ★★ .in() 은 쉼표가 든 값을 따옴표로 감싸 줍니다. 잘 처리합니다.
+              //
+              // ★★★ 그런데 값 안에 **큰따옴표**가 있으면 감싸지 않습니다.
+              //   마지막 줄을 보세요. 따옴표가 그대로 들어가 있습니다.
+              //   PostgREST 가 이걸 어떻게 읽을지 보장되지 않습니다.
+              //
+              //   실제로 겪을 일이 드물지만, 사용자 입력을 .in() 에 그대로 넣지 마세요.
+              //   03단원에서 배운 대로 허용 목록으로 거르거나, 값을 검사하세요.
+              //
+              // ★ 이게 SQL 자리표시자와 다른 점입니다.
+              //   02단원의 ? 는 값이 무엇이든 완벽하게 지켜 줬습니다.
+              //   PostgREST 는 값을 **URL 문자열로 조립**합니다. 규칙이 더 약합니다.
+              //
+              //   그래도 SQL 인젝션은 안 됩니다. PostgREST 가 SQL 을 직접 만들지 않고
+              //   구조화된 형태로 해석하기 때문입니다.
+              //   다만 "이상한 값이 이상한 결과를 낸다" 는 있을 수 있습니다.
 
-        console.log("SQL 인젝션이 되나:", false);
-        // 출력: SQL 인젝션이 되나: false
-      });
+              console.log("SQL 인젝션이 되나:", false);
+              // 출력: SQL 인젝션이 되나: false
+            });
+        });
     });
-  });
 }
 
 요청보기();
