@@ -1,20 +1,17 @@
 // ============================================================
 // 개념 03 — 자바스크립트 클라이언트
 // ============================================================
-
+//
 // Supabase 는 표를 만들면 REST API 가 자동으로 생깁니다.
 // 그 API 를 편하게 부르는 것이 @supabase/supabase-js 입니다.
-
+//
 // 이 파일은 인터넷 없이 돕니다. 가짜Supabase.js 가 대답합니다.
 // 대신 **요청 주소는 진짜 클라이언트가 만든 것** 입니다. 그대로 믿어도 됩니다.
-
+//
 // 실행: node 개념03_자바스크립트_클라이언트.js
 // ============================================================
 
-const {
-  기록하는클라이언트,
-  표있는클라이언트,
-} = require("@supabase/supabase-js");
+const { 기록하는클라이언트, 표있는클라이언트 } = require("./가짜Supabase");
 
 // ============================================================
 // 1. 만들기
@@ -42,8 +39,11 @@ const { 클라이언트: 기록용, 기록 } = 기록하는클라이언트();
 
 async function 요청보기() {
   await 기록용.from("equipments").select("id, name");
+  //select id, name from equipments
   await 기록용.from("equipments").select("*").eq("line", "A");
+  //select * from equipments where line=A
   await 기록용.from("equipments").select("*").neq("status", "정지");
+  //select * from equipments where status not= 정지
   await 기록용
     .from("equipments")
     .select("*")
@@ -52,7 +52,9 @@ async function 요청보기() {
   await 기록용.from("equipments").select("*").in("line", ["A", "B"]);
   await 기록용.from("equipments").select("*").is("temperature", null);
   await 기록용.from("equipments").select("*").ilike("name", "%로봇%");
+  // 이름에 로봇이 들어가는 것들
   await 기록용.from("equipments").select("*").or("line.eq.A,line.eq.B");
+  //라인이 A,B인것
   await 기록용
     .from("equipments")
     .select("*")
